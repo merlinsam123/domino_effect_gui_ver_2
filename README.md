@@ -18,10 +18,10 @@ which are driven by motors. To communicate with the robot, the GUI would output 
 domino_effect_gui_output.txt once the user told the program they were done setting up the path they wanted
 the robot to set up the dominoes in. The .txt file will contain letters corresponding to actions taken by the robot.
 
-F - Drop Domino
-W - Move Both Wheels Forward One Step
-D - Move Only Left Wheel Forward
-A - Move Only Right Wheel Forward
+F - Drop Domino.
+W - Move Both Wheels Forward One Step.
+D - Move Only Left Wheel Forward.
+A - Move Only Right Wheel Forward.
 
 To execute the project above, download a version of Microsoft Visual Studio (the project was Visual Studio 2017) and
 execute the project in x86. When run, the user will be presented with a GUI that will allow them to create a path for
