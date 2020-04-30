@@ -127,7 +127,7 @@ void  GUIcontroller::finalize_path() {
 				for (int j = 0; j < curNode->numDominoes; j++) {
 					my_file << 'F';
 
-					for (double i = distance_per_step; i < distance_between_dominoes; i += distance_per_step) {
+					for (double i = distance_per_step; i < distance_between_dominoes; i += 2*distance_per_step) {
 						my_file << 'W';
 						my_file << curNode->moveType;
 					}

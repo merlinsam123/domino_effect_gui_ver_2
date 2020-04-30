@@ -7,7 +7,7 @@ class cMain : public wxFrame
 public:
 	cMain();
 	~cMain();
-public:
+private:
 	GUIcontroller *gui_control;
 
 	char move_type;
@@ -15,6 +15,7 @@ public:
 	double turn_degrees;
 	double domino_distance;
 	bool left_or_right;
+
 
 	wxArrayString inputPathActions;
 	wxArrayString leftOrRight;
@@ -43,6 +44,7 @@ public:
 	wxButton *finalizePath = nullptr;
 	wxButton *startOver = nullptr;
 
+public:
 	void pathActionSelection(wxCommandEvent &evt);
 
 	void addButtonClicked(wxCommandEvent &evt);
