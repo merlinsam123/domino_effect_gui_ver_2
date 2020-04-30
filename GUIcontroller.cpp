@@ -59,14 +59,8 @@ void  GUIcontroller::add_path_action(char moveType, int numDominoes, double turn
 	newNode->moveType = moveType;
 	newNode->nextNode = NULL;
 
-	if (moveType == 'W' || moveType == 'I') {
-		newNode->numDominoes = numDominoes;
-		newNode->turnDegrees = -1.0;
-	}
-	else {
-		newNode->numDominoes = -1;
-		newNode->turnDegrees = turnDegrees;
-	}
+	newNode->numDominoes = numDominoes;
+	newNode->turnDegrees = turnDegrees;
 
 	if (head == NULL) {
 		newNode->lastNode = NULL;
@@ -104,9 +98,14 @@ void  GUIcontroller::remove_last() {
 
 // Outputs path instructions to .txt
 void  GUIcontroller::finalize_path() {
+	distance_per_step = 2 * PI*wheel_radius * degrees_per_step / 360.0;
+	turn_circumference = 2 * PI*wheel_distance;
+	step_degree_change = distance_per_step / turn_circumference * 360.0;
+	degrees_between_dominoes = distance_between_dominoes / turn_circumference * 360.0;
+
 	ofstream my_file;
 	my_file.open("domino_effect_gui_output.txt");
-			
+
 	pathNode* curNode = head;
 
 	while (curNode != NULL) {
@@ -123,23 +122,38 @@ void  GUIcontroller::finalize_path() {
 
 		// Prints instructions for curve made up of dominoes
 		else {
-			double d = 0.0;
-			double distance_thresh = 0.0;
-
-			while(d/2/turn_circumference*360.0 < curNode->turnDegrees) {
-				if (d >= distance_thresh) {
+			//Input # Dominoes
+			if (curNode->numDominoes > 0) {
+				for (int j = 0; j < curNode->numDominoes; j++) {
 					my_file << 'F';
-					distance_thresh += distance_between_dominoes;
+
+					for (double i = distance_per_step; i < distance_between_dominoes; i += distance_per_step) {
+						my_file << 'W';
+						my_file << curNode->moveType;
+					}
+				}
+			}
+			// Input degrees
+			else
+			{
+				double d = 0.0;
+				double distance_thresh = 0.0;
+
+				while (d / 2 / turn_circumference * 360.0 < curNode->turnDegrees) {
+					if (d >= distance_thresh) {
+						my_file << 'F';
+						distance_thresh += distance_between_dominoes;
+					}
+
+					my_file << 'W';
+					my_file << curNode->moveType;
+					d += 2 * distance_per_step;
 				}
 
-				my_file << 'W';
-				my_file << curNode->moveType;
-				d += 2*distance_per_step;
-			}
-
-			while (d <= distance_thresh) {
-				my_file << 'W';
-				d += distance_per_step;
+				while (d <= distance_thresh) {
+					my_file << 'W';
+					d += distance_per_step;
+				}
 			}
 		}
 
