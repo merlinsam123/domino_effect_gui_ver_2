@@ -19,8 +19,11 @@ domino_effect_gui_output.txt once the user told the program they were done setti
 the robot to set up the dominoes in. The .txt file will contain letters corresponding to actions taken by the robot.
 
 F - Drop Domino.
+
 W - Move Both Wheels Forward One Step.
+
 D - Move Only Left Wheel Forward.
+
 A - Move Only Right Wheel Forward.
 
 To execute the project above, download a version of Microsoft Visual Studio (the project was Visual Studio 2017) and
